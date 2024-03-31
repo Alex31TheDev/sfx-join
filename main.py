@@ -10,7 +10,7 @@ from sfx.sfx_util import get_sfx_list, merge_sfx, save_sfx
 
 from defaults import *
 
-def parseOrder(merge_order):
+def parse_order(merge_order):
     if merge_order == None:
         return default_merge_order
     
@@ -23,7 +23,7 @@ def parseOrder(merge_order):
 
     return merge_order
 
-def getPaths(files, sfx_dir, in_format):
+def get_paths(files, sfx_dir, in_format):
     sfx_paths = []
 
     if files != None:
@@ -55,10 +55,10 @@ def main():
     out_format = args.format or default_out_format
     in_format = args.in_format or default_in_format
 
-    merge_order = parseOrder(args.order)
+    merge_order = parse_order(args.order)
     overlay = args.overlay
 
-    sfx_paths = getPaths(files, sfx_dir, in_format)
+    sfx_paths = get_paths(files, sfx_dir, in_format)
 
     sfx_list = get_sfx_list(sfx_paths, in_format, remove_erroring, verbose)
     merged_sfx = merge_sfx(sfx_list, merge_order, overlay)
