@@ -105,7 +105,7 @@ def merge_sfx(sfx_list, overlay=False):
         result_sfx = _overlay_merge(sfx_list)
     else:
         result_sfx = _simple_merge(sfx_list)
-    print(len(sfx_list))
+
     return result_sfx
 
 def order_sfx(sfx_paths, order, count):
