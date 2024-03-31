@@ -6,7 +6,7 @@ Merge multiple audio files into a single file
 
 Run `python main.py --help` to view the command line help:
 
-    usage: main.py [-h] [-i INPUT] [-o OUT] [-f FORMAT] [-if IN_FORMAT] [-order ORDER] [-overlay] [-remove] [-verbose] [input ...]
+    usage: main.py [-h] [-i INPUT] [-o OUT] [-f FORMAT] [-if IN_FORMAT] [-order ORDER] [-overlay] [-c COUNT] [-remove] [-verbose] [input ...]
 
     Sound effect combiner
 
@@ -21,6 +21,7 @@ Run `python main.py --help` to view the command line help:
       -if IN_FORMAT  Input format
       -order ORDER   Merge order
       -overlay       Overlay sound effects
+      -c COUNT       How many files to merge (default all)
       -remove        Remove erroring files
       -verbose       Show verbose ffmpeg errors
 
