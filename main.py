@@ -1,5 +1,5 @@
 from cli.get_parser import get_parser
-from util.util import parse_order, sfx_paths
+from util.util import parse_order, sfx_paths, check_ffmpeg, set_ffmpeg
 from sfx.sfx_util import get_sfx_list, order_sfx, merge_sfx, save_sfx
 
 from defaults import *
@@ -10,6 +10,10 @@ def main():
 
     remove_erroring = args.remove_erroring
     verbose = args.verbose
+    ffmpeg_path = args.ffmpeg_path
+
+    set_ffmpeg(ffmpeg_path)
+    check_ffmpeg()
 
     files = args.files
     sfx_dir = args.input

@@ -1,6 +1,9 @@
 import sys
 from os import path
 
+import shutil
+from pydub import AudioSegment
+
 from defaults import *
 from sfx.ordermode import OrderMode
 
@@ -41,3 +44,16 @@ def sfx_paths(files, sfx_dir, in_format):
         error('No valid input files provided.')
 
     return sfx_paths
+
+def check_ffmpeg():
+    pydub_ffmpeg_path = AudioSegment.converter
+    ffmpeg_path = shutil.which(pydub_ffmpeg_path)
+
+    if ffmpeg_path is None:
+        error(f"ffmpeg not found at path: {pydub_ffmpeg_path}")
+
+    return ffmpeg_path
+
+def set_ffmpeg(ffmpeg_path):
+    if ffmpeg_path is not None:
+        AudioSegment.converter = ffmpeg_path
