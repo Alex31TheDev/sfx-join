@@ -38,6 +38,12 @@ args = [
         'help': 'Overlay sound effects'
     },
     {
+        'name': 'c',
+        'dest': 'count',
+        'type': int,
+        'help': 'How many files to merge (default all)'
+    },
+    {
         'name': 'remove',
         'dest': 'remove_erroring',
         'action': 'store_true',

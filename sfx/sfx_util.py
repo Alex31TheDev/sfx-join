@@ -13,10 +13,8 @@ from util.util import error
 default_crossfade = 200
 
 def _load_sfx(sfx_path, format, remove_erroring=False, verbose=False):
-    err_out = ''
-
     try:
-        return (AudioSegment.from_file(sfx_path, format), err_out)
+        return AudioSegment.from_file(sfx_path, format)
     except CouldntDecodeError as err:
         if verbose:
             out = str(err)
@@ -24,14 +22,14 @@ def _load_sfx(sfx_path, format, remove_erroring=False, verbose=False):
             split = str(err).split('\n')
             out = split[0]
 
-        err_out += f'{out} \'{sfx_path}\''
+        err_out = f'{out} \'{sfx_path}\''
     except Exception as err:
         msg = str(err)
 
         if 'No such file or directory' in msg:
             msg = f'File not found: \'{sfx_path}\''
         
-        err_out += msg
+        err_out = msg
 
     print(f'decode error: {err_out}')
 
@@ -50,10 +48,7 @@ def get_sfx_list(sfx_paths, format, remove_erroring=False, verbose=False):
         if sfx is None:
             continue
 
-        sfx_name = path.splitext(sfx_path)
-
-        data = (sfx_name, sfx)
-        sfx_list.append(data)
+        sfx_list.append(sfx)
 
     return sfx_list
 
@@ -102,22 +97,31 @@ def _overlay_merge(sfx_list):
     result_sfx = merged_sfx.overlay(overlayed_sfx, overlay_offset / 2)
     return result_sfx
 
-def _order_sfx(sfx_list, order):
-    if order == OrderMode.SORTED:
-        sfx_list.sort(key=lambda tup: tup[0])
-    elif order == OrderMode.RANDOM:
-        random.shuffle(sfx_list)
-
-def merge_sfx(sfx_list, order=OrderMode.DEFAULT, overlay=False):
-    _order_sfx(sfx_list, order)
-    sfx_list = [sfx[1] for sfx in sfx_list]
-    
+def merge_sfx(sfx_list, overlay=False):
     if overlay:
+        if len(sfx_list) < 3:
+            error("Not enough files, need at least 3 to overlay")
+
         result_sfx = _overlay_merge(sfx_list)
     else:
         result_sfx = _simple_merge(sfx_list)
-
+    print(len(sfx_list))
     return result_sfx
+
+def order_sfx(sfx_paths, order, count):
+    if order == OrderMode.SORTED:
+        sfx_paths = [path.splitext(sfx_path)[0] for sfx_path in sfx_paths]
+
+        sfx_paths.sort(key=lambda tup: tup[0])
+
+        sfx_paths = [sfx[1] for sfx in sfx_paths]
+    elif order == OrderMode.RANDOM:
+        random.shuffle(sfx_paths)
+
+    if count is not None:
+        sfx_paths = sfx_paths[:count]
+
+    return sfx_paths
 
 def save_sfx(sfx, filename, format):
     file_path = path.abspath(filename)
