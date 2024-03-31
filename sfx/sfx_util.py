@@ -47,7 +47,7 @@ def get_sfx_list(sfx_paths, format, remove_erroring=False, verbose=False):
     for sfx_path in sfx_paths:
         sfx = _load_sfx(sfx_path, format, remove_erroring, verbose)
 
-        if sfx == None:
+        if sfx is None:
             continue
 
         sfx_name = path.splitext(sfx_path)

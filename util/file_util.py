@@ -42,7 +42,7 @@ def _rec_get(cur_path, extension, paths):
     return paths
 
 def get_paths(dir_path, extension=None):
-    if extension == None:
+    if extension is None:
         extension = '.'
     else:
         extension = '.' + extension

@@ -12,7 +12,7 @@ def error(msg):
     sys.exit(0)
 
 def parse_order(merge_order):
-    if merge_order == None:
+    if merge_order is None:
         return default_merge_order
     
     merge_order = merge_order.lower()
@@ -27,10 +27,10 @@ def parse_order(merge_order):
 def sfx_paths(files, sfx_dir, in_format):
     sfx_paths = []
 
-    if files != None:
+    if files is not None:
         sfx_paths = [path.abspath(file_path) for file_path in files]
 
-    if sfx_dir != None:
+    if sfx_dir is not None:
         try:
             sfx_paths = get_paths(sfx_dir, in_format)
         except FileNotFoundError:
