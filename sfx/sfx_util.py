@@ -33,29 +33,27 @@ def _load_sfx(sfx_path, format, remove_erroring=False, verbose=False):
         
         err_out += msg
 
+    print(f'decode error: {err_out}')
+
     if remove_erroring:
         os.remove(sfx_path)
-        print(f'Removed {sfx_path}')
+        print(f'removed: {sfx_path}')
 
-    return (None, err_out)
+    return None
 
 def get_sfx_list(sfx_paths, format, remove_erroring=False, verbose=False):
     sfx_list = []
-    err_list = []
 
     for sfx_path in sfx_paths:
-        [sfx, err] = _load_sfx(sfx_path, format, remove_erroring, verbose)
+        sfx = _load_sfx(sfx_path, format, remove_erroring, verbose)
 
-        if err != '':
-            err_list.append(err)
-        else:
-            sfx_name = path.splitext(sfx_path)
+        if sfx == None:
+            continue
 
-            data = (sfx_name, sfx)
-            sfx_list.append(data)
+        sfx_name = path.splitext(sfx_path)
 
-    if len(err_list) > 0:
-        error('\n'.join(err_list))
+        data = (sfx_name, sfx)
+        sfx_list.append(data)
 
     return sfx_list
 
