@@ -1,45 +1,8 @@
-from os import path
-
 from cli.get_parser import get_parser
-
-from util.util import error
-from util.file_util import get_paths, create_dir
-
-from sfx.ordermode import OrderMode
+from util.util import parse_order, get_paths
 from sfx.sfx_util import get_sfx_list, merge_sfx, save_sfx
 
 from defaults import *
-
-def parse_order(merge_order):
-    if merge_order == None:
-        return default_merge_order
-    
-    merge_order = merge_order.lower()
-    
-    try:
-        merge_order = OrderMode(merge_order)
-    except ValueError:
-        error('Invalid ordering mode: ' + merge_order)
-
-    return merge_order
-
-def get_paths(files, sfx_dir, in_format):
-    sfx_paths = []
-
-    if files != None:
-        sfx_paths = [path.abspath(file_path) for file_path in files]
-
-    if sfx_dir != None:
-        try:
-            sfx_paths = get_paths(sfx_dir, in_format)
-        except FileNotFoundError:
-            create_dir(sfx_dir)
-            error('Input directory not found. Directory created.')
-
-    if len(sfx_paths) == 0:
-        error('No valid input files provided.')
-
-    return sfx_paths
 
 def main():
     parser = get_parser()
