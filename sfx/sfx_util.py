@@ -100,7 +100,7 @@ def _overlay_merge(sfx_list):
 def merge_sfx(sfx_list, overlay=False):
     if overlay:
         if len(sfx_list) < 3:
-            error("Not enough files, need at least 3 to overlay")
+            error('Not enough files, need at least 3 to overlay')
 
         result_sfx = _overlay_merge(sfx_list)
     else:

@@ -55,7 +55,7 @@ args = [
         'help': 'Show verbose ffmpeg errors'
     },
     {
-        'name': "ffmpeg_path",
-        'help': "Set custom ffmpeg path"
+        'name': 'ffmpeg_path',
+        'help': 'Set custom ffmpeg path'
     }
 ]

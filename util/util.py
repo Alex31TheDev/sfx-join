@@ -50,7 +50,7 @@ def check_ffmpeg():
     ffmpeg_path = shutil.which(pydub_ffmpeg_path)
 
     if ffmpeg_path is None:
-        error(f"ffmpeg not found at path: {pydub_ffmpeg_path}")
+        error(f'ffmpeg not found at path: {pydub_ffmpeg_path}')
 
     return ffmpeg_path
 
